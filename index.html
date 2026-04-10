@@ -1,0 +1,998 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Geisimara Santos - Nail Designer. Manicura, pedicura, nail art y extensiones.">
+<title>Geisimara Santos · Nail Designer</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════
+   TEMA: variables día / noche
+═══════════════════════════════════════ */
+:root {
+  --gold: #C9A84C;
+  --gold-light: #E8D5A3;
+  --gold-dark: #9A7A30;
+  --gold-rgb: 201,168,76;
+}
+
+[data-theme="dark"] {
+  --bg:       #0A0A0A;
+  --bg1:      #111111;
+  --bg2:      #1A1A1A;
+  --bg3:      #222222;
+  --text:     #F5F0E8;
+  --muted:    #888888;
+  --muted2:   #444444;
+  --border:   rgba(201,168,76,0.15);
+  --border2:  rgba(201,168,76,0.08);
+  --overlay:  rgba(10,10,10,0.92);
+  --nav-bg:   rgba(10,10,10,0.95);
+}
+
+[data-theme="light"] {
+  --bg:       #FAFAF7;
+  --bg1:      #F2EDE3;
+  --bg2:      #E8E0D0;
+  --bg3:      #DDD5C5;
+  --text:     #1A1208;
+  --muted:    #7A6A50;
+  --muted2:   #BBB0A0;
+  --border:   rgba(154,122,48,0.25);
+  --border2:  rgba(154,122,48,0.12);
+  --overlay:  rgba(250,250,247,0.92);
+  --nav-bg:   rgba(250,250,247,0.96);
+}
+
+/* ═══════════════════════════════════════
+   BASE
+═══════════════════════════════════════ */
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body {
+  font-family:'Montserrat',sans-serif;
+  background:var(--bg); color:var(--text);
+  overflow-x:hidden; line-height:1.6;
+  transition: background 0.5s, color 0.5s;
+}
+img { max-width:100%; display:block; }
+a { text-decoration:none; color:inherit; }
+
+.gold { color:var(--gold); }
+.section-label {
+  display:block; font-size:clamp(0.55rem,1.5vw,0.65rem);
+  letter-spacing:0.35em; text-transform:uppercase;
+  color:var(--gold); margin-bottom:1rem;
+}
+.section-title {
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(2rem,5vw,3.5rem); font-weight:300;
+  line-height:1.15; margin-bottom:1.5rem;
+}
+.divider { width:50px; height:0.5px; background:var(--gold); opacity:0.5; margin:1.8rem 0; }
+section { padding:clamp(3.5rem,8vw,6rem) clamp(1.5rem,6vw,5rem); }
+
+/* ═══════════════════════════════════════
+   TOGGLE TEMA
+═══════════════════════════════════════ */
+.theme-toggle {
+  position:fixed; bottom:2rem; right:2rem; z-index:150;
+  width:52px; height:52px; border-radius:50%;
+  background:var(--bg2); border:0.5px solid var(--border);
+  cursor:pointer; display:flex; align-items:center; justify-content:center;
+  transition:background 0.3s, border-color 0.3s, box-shadow 0.3s;
+  box-shadow:0 4px 20px rgba(0,0,0,0.2);
+}
+.theme-toggle:hover { border-color:var(--gold); box-shadow:0 4px 24px rgba(201,168,76,0.25); }
+.theme-toggle svg { color:#C9A84C; flex-shrink:0; }
+.theme-toggle:hover { border-color:var(--gold); transform:scale(1.08); }
+.theme-toggle .icon-dark { display:block; }
+.theme-toggle .icon-light { display:none; }
+[data-theme="light"] .theme-toggle .icon-dark { display:none; }
+[data-theme="light"] .theme-toggle .icon-light { display:block; }
+
+/* ═══════════════════════════════════════
+   NAV
+═══════════════════════════════════════ */
+nav {
+  position:fixed; top:0; left:0; right:0; z-index:200;
+  display:flex; align-items:center; justify-content:space-between;
+  padding:1.2rem clamp(1.5rem,5vw,5rem);
+  background:var(--nav-bg);
+  backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px);
+  border-bottom:0.5px solid var(--border);
+  transition:background 0.5s, border-color 0.5s;
+}
+.nav-logo {
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(0.85rem,2vw,1.05rem);
+  letter-spacing:0.2em; color:var(--gold); text-transform:uppercase;
+}
+.nav-links { display:flex; gap:clamp(1.5rem,3vw,2.5rem); list-style:none; }
+.nav-links a {
+  font-size:clamp(0.6rem,1.2vw,0.7rem); letter-spacing:0.2em;
+  text-transform:uppercase; color:var(--text); opacity:0.6;
+  transition:opacity 0.3s, color 0.3s;
+}
+.nav-links a:hover { opacity:1; color:var(--gold); }
+
+/* ─── SELECTOR IDIOMA ─── */
+.lang-selector {
+  display:flex; align-items:center; gap:0;
+  border:0.5px solid var(--border); overflow:hidden;
+  border-radius:2px;
+}
+.lang-btn {
+  font-size:0.58rem; letter-spacing:0.18em;
+  padding:0.35rem 0.6rem; background:none; border:none;
+  color:var(--text); opacity:0.5; cursor:pointer;
+  font-family:'Montserrat',sans-serif; font-weight:500;
+  transition:all 0.25s; text-transform:uppercase;
+}
+.lang-btn:not(:last-child) { border-right:0.5px solid var(--border); }
+.lang-btn.active { color:var(--gold); opacity:1; background:rgba(var(--gold-rgb),0.08); }
+.lang-btn:hover:not(.active) { opacity:0.85; color:var(--gold); }
+
+/* ─── NAV DERECHA con idioma ─── */
+.nav-right { display:flex; align-items:center; gap:clamp(1rem,2.5vw,2rem); }
+.nav-hamburger { display:none; flex-direction:column; gap:5px; cursor:pointer; background:none; border:none; padding:4px; }
+.nav-hamburger span { display:block; width:22px; height:0.5px; background:var(--gold); transition:all 0.3s; }
+
+.nav-mobile {
+  display:none; position:fixed; inset:0; z-index:190;
+  background:var(--overlay); backdrop-filter:blur(20px);
+  flex-direction:column; align-items:center; justify-content:center; gap:2.5rem;
+  transition:background 0.5s;
+}
+.nav-mobile.open { display:flex; }
+.nav-mobile a {
+  font-family:'Cormorant Garamond',serif; font-size:2.2rem; font-weight:300;
+  color:var(--text); letter-spacing:0.1em; transition:color 0.3s;
+}
+.nav-mobile a:hover { color:var(--gold); }
+.nav-mobile-close { position:absolute; top:1.5rem; right:1.5rem; font-size:1.5rem; color:var(--gold); cursor:pointer; background:none; border:none; }
+
+/* ═══════════════════════════════════════
+   HERO
+═══════════════════════════════════════ */
+.hero {
+  min-height:100vh; display:flex; align-items:center; justify-content:center;
+  flex-direction:column; text-align:center; position:relative; overflow:hidden;
+  padding:clamp(7rem,12vw,10rem) clamp(1.5rem,5vw,3rem) clamp(4rem,8vw,6rem);
+}
+.hero-bg {
+  position:absolute; inset:0; z-index:0;
+  background:
+    radial-gradient(ellipse 70% 50% at 50% 60%, rgba(var(--gold-rgb),0.06) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 30% at 15% 15%, rgba(var(--gold-rgb),0.03) 0%, transparent 60%);
+}
+.hero-top-line {
+  position:absolute; top:0; left:50%; transform:translateX(-50%);
+  width:0.5px; height:100px;
+  background:linear-gradient(to bottom, transparent, rgba(var(--gold-rgb),0.5));
+}
+.hero-content { position:relative; z-index:1; max-width:680px; width:100%; animation:fadeUp 1s ease both; }
+.hero-eyebrow {
+  font-size:clamp(0.55rem,1.5vw,0.65rem); letter-spacing:0.35em;
+  text-transform:uppercase; color:var(--gold); opacity:0.8; margin-bottom:2.5rem;
+}
+.hero-eyebrow::before,.hero-eyebrow::after { content:'—'; margin:0 0.8rem; opacity:0.4; }
+.hero-logo { width:clamp(220px,50vw,360px); margin:0 auto 2.5rem; filter:drop-shadow(0 0 40px rgba(var(--gold-rgb),0.18)); }
+.hero-tagline {
+  font-family:'Cormorant Garamond',serif; font-size:clamp(1rem,2.5vw,1.35rem);
+  font-style:italic; font-weight:300; color:var(--gold-light);
+  letter-spacing:0.04em; margin-bottom:3rem;
+}
+.hero-cta {
+  display:inline-block; padding:clamp(0.85rem,2vw,1rem) clamp(2rem,5vw,3rem);
+  border:0.5px solid var(--gold); color:var(--gold);
+  font-size:clamp(0.6rem,1.5vw,0.7rem); letter-spacing:0.3em; text-transform:uppercase;
+  transition:all 0.4s;
+}
+.hero-cta:hover { background:var(--gold); color:var(--bg); }
+.hero-scroll {
+  position:absolute; bottom:2rem; left:50%; transform:translateX(-50%);
+  display:flex; flex-direction:column; align-items:center; gap:8px;
+  font-size:0.55rem; letter-spacing:0.3em; text-transform:uppercase; color:var(--muted); z-index:1;
+}
+.scroll-bar { width:0.5px; height:40px; background:linear-gradient(to bottom,var(--gold),transparent); animation:scrollAnim 2s ease-in-out infinite; }
+
+/* ═══════════════════════════════════════
+   SERVICIOS
+═══════════════════════════════════════ */
+.services { background:var(--bg1); transition:background 0.5s; }
+.services-header { margin-bottom:clamp(2.5rem,6vw,4rem); }
+.services-header p { font-size:clamp(0.8rem,1.8vw,0.88rem); line-height:2; color:var(--muted); font-weight:300; max-width:480px; }
+
+.services-grid {
+  display:grid; grid-template-columns:repeat(3,1fr);
+  gap:1px; background:var(--border);
+  border:0.5px solid var(--border);
+  overflow:hidden;
+}
+.service-card {
+  padding:clamp(1.5rem,3vw,2.5rem); background:var(--bg1);
+  position:relative; overflow:hidden; transition:background 0.4s;
+}
+.service-card::after {  
+  content:''; position:absolute; top:0; left:0; right:0; height:1px;
+  background:linear-gradient(to right,transparent,var(--gold),transparent);
+  opacity:0; transition:opacity 0.4s;
+}
+.service-card:hover { background:var(--bg2); }
+.service-card:hover::after { opacity:1; }
+.service-num { font-family:'Cormorant Garamond',serif; font-size:clamp(2rem,4vw,3rem); font-weight:300; color:rgba(var(--gold-rgb),0.12); line-height:1; margin-bottom:1rem; user-select:none; }
+.service-name { font-family:'Cormorant Garamond',serif; font-size:clamp(1.1rem,2.5vw,1.45rem); color:var(--text); margin-bottom:0.75rem; }
+.service-desc { font-size:clamp(0.7rem,1.5vw,0.78rem); line-height:1.9; color:var(--muted); font-weight:300; }
+
+/* ═══════════════════════════════════════
+   SOBRE MÍ
+═══════════════════════════════════════ */
+.about-wrap { display:grid; grid-template-columns:1fr 1fr; gap:clamp(3rem,7vw,6rem); align-items:center; }
+.about-frame {
+  position:relative; border:0.5px solid var(--border);
+  max-width:420px; width:100%; overflow:hidden;
+  transition:border-color 0.5s;
+}
+.about-frame img { width:100%; height:auto; display:block; filter:brightness(0.95); }
+.corner { position:absolute; width:22px; height:22px; border-color:rgba(var(--gold-rgb),0.6); border-style:solid; z-index:2; }
+.corner.tl { top:-1px; left:-1px; border-width:1px 0 0 1px; }
+.corner.tr { top:-1px; right:-1px; border-width:1px 1px 0 0; }
+.corner.bl { bottom:-1px; left:-1px; border-width:0 0 1px 1px; }
+.corner.br { bottom:-1px; right:-1px; border-width:0 1px 1px 0; }
+
+.about-text p { font-size:clamp(0.8rem,1.8vw,0.88rem); line-height:2.1; color:var(--muted); font-weight:300; margin-bottom:1.2rem; }
+.stats-row { display:flex; gap:clamp(1.5rem,4vw,3rem); margin-top:2.5rem; padding-top:2.5rem; border-top:0.5px solid var(--border); flex-wrap:wrap; }
+.stat-num { display:block; font-family:'Cormorant Garamond',serif; font-size:clamp(1.8rem,4vw,2.5rem); font-weight:300; color:var(--gold); }
+.stat-label { display:block; font-size:clamp(0.58rem,1.3vw,0.65rem); letter-spacing:0.18em; text-transform:uppercase; color:var(--muted); margin-top:3px; }
+
+/* ═══════════════════════════════════════
+   CARRUSEL HERO (loop infinito, 3D)
+═══════════════════════════════════════ */
+.carousel-section {
+  background:var(--bg1); padding:clamp(3rem,7vw,5rem) 0;
+  overflow:hidden; transition:background 0.5s;
+}
+.carousel-header { padding:0 clamp(1.5rem,6vw,5rem); margin-bottom:clamp(2rem,4vw,3rem); }
+
+.carousel-stage {
+  position:relative; width:100%;
+  display:flex; align-items:center; justify-content:center;
+  height:clamp(320px,55vw,560px);
+  perspective:1200px;
+  user-select:none;
+}
+
+.carousel-track {
+  position:relative; width:100%; height:100%;
+  display:flex; align-items:center; justify-content:center;
+}
+
+.c-item {
+  position:absolute;
+  transition:all 0.55s cubic-bezier(0.25,0.46,0.45,0.94);
+  cursor:pointer;
+  border:0.5px solid var(--border2);
+  overflow:hidden;
+  border-radius:2px;
+}
+.c-item img {
+  width:100%; height:100%; object-fit:cover; display:block;
+  transition:filter 0.4s;
+  pointer-events:none;
+}
+
+/* Posiciones: center, right1, right2, left1, left2, hidden */
+.c-item[data-pos="center"] {
+  width:clamp(200px,30vw,320px);
+  height:clamp(267px,40vw,427px);
+  transform:translateX(0) scale(1) rotateY(0deg);
+  z-index:10; opacity:1;
+  box-shadow:0 20px 60px rgba(0,0,0,0.5);
+  border-color:rgba(var(--gold-rgb),0.35);
+}
+.c-item[data-pos="right1"] {
+  width:clamp(140px,20vw,220px);
+  height:clamp(187px,27vw,293px);
+  transform:translateX(clamp(160px,22vw,280px)) scale(0.88) rotateY(-12deg);
+  z-index:7; opacity:0.85;
+}
+.c-item[data-pos="right2"] {
+  width:clamp(100px,14vw,160px);
+  height:clamp(133px,19vw,213px);
+  transform:translateX(clamp(270px,37vw,470px)) scale(0.72) rotateY(-20deg);
+  z-index:5; opacity:0.5;
+}
+.c-item[data-pos="left1"] {
+  width:clamp(140px,20vw,220px);
+  height:clamp(187px,27vw,293px);
+  transform:translateX(clamp(-280px,-22vw,-160px)) scale(0.88) rotateY(12deg);
+  z-index:7; opacity:0.85;
+}
+.c-item[data-pos="left2"] {
+  width:clamp(100px,14vw,160px);
+  height:clamp(133px,19vw,213px);
+  transform:translateX(clamp(-470px,-37vw,-270px)) scale(0.72) rotateY(20deg);
+  z-index:5; opacity:0.5;
+}
+.c-item[data-pos="hidden-right"] {
+  width:clamp(80px,10vw,120px); height:clamp(107px,13vw,160px);
+  transform:translateX(clamp(380px,52vw,650px)) scale(0.5) rotateY(-28deg);
+  z-index:1; opacity:0; pointer-events:none;
+}
+.c-item[data-pos="hidden-left"] {
+  width:clamp(80px,10vw,120px); height:clamp(107px,13vw,160px);
+  transform:translateX(clamp(-650px,-52vw,-380px)) scale(0.5) rotateY(28deg);
+  z-index:1; opacity:0; pointer-events:none;
+}
+
+/* Overlay brillo en central */
+.c-item[data-pos="center"]::after {
+  content:''; position:absolute; inset:0;
+  background:linear-gradient(135deg, rgba(255,255,255,0.04) 0%, transparent 60%);
+  pointer-events:none;
+}
+
+/* Flechas */
+.carousel-btn {
+  position:absolute; top:50%; transform:translateY(-50%);
+  z-index:20; width:clamp(36px,5vw,52px); height:clamp(36px,5vw,52px);
+  border-radius:50%;
+  background:var(--bg2); border:0.5px solid var(--border);
+  color:var(--gold); font-size:clamp(0.9rem,2vw,1.1rem);
+  cursor:pointer; display:flex; align-items:center; justify-content:center;
+  transition:all 0.3s;
+}
+.carousel-btn:hover { background:var(--gold); color:var(--bg); border-color:var(--gold); }
+.carousel-btn.prev { left:clamp(0.5rem,2vw,2rem); }
+.carousel-btn.next { right:clamp(0.5rem,2vw,2rem); }
+
+/* Dots */
+.carousel-dots { display:flex; justify-content:center; gap:8px; margin-top:1.8rem; padding:0 1rem; }
+.c-dot {
+  width:5px; height:5px; border-radius:50%;
+  background:var(--muted2); border:none; cursor:pointer;
+  transition:all 0.3s; padding:0;
+}
+.c-dot.active { background:var(--gold); transform:scale(1.4); }
+
+/* ─── LIGHTBOX ─── */
+.lightbox {
+  display:none; position:fixed; inset:0; z-index:500;
+  background:rgba(0,0,0,0.92); backdrop-filter:blur(12px);
+  align-items:center; justify-content:center; flex-direction:column;
+  gap:1.5rem;
+}
+.lightbox.open { display:flex; }
+.lightbox img {
+  max-width:min(90vw,700px); max-height:85vh;
+  object-fit:contain; border:0.5px solid rgba(var(--gold-rgb),0.3);
+  animation:lbIn 0.35s cubic-bezier(0.25,0.46,0.45,0.94);
+}
+.lightbox-close {
+  position:absolute; top:1.5rem; right:1.5rem;
+  font-size:1.5rem; color:var(--gold); cursor:pointer;
+  background:none; border:none; opacity:0.8; transition:opacity 0.2s;
+}
+.lightbox-close:hover { opacity:1; }
+.lightbox-hint {
+  font-size:0.62rem; letter-spacing:0.2em; text-transform:uppercase;
+  color:rgba(201,168,76,0.5);
+}
+@keyframes lbIn { from { opacity:0; transform:scale(0.9); } to { opacity:1; transform:scale(1); } }
+
+/* ═══════════════════════════════════════
+   CONTACTO
+═══════════════════════════════════════ */
+.contact-center { max-width:700px; margin:0 auto; text-align:center; }
+.contact-subtitle { font-family:'Cormorant Garamond',serif; font-size:clamp(1rem,2.5vw,1.2rem); font-style:italic; color:var(--gold-light); opacity:0.7; margin-bottom:clamp(2.5rem,5vw,4rem); }
+
+.contact-cards {
+  display:grid; grid-template-columns:repeat(2,1fr);
+  gap:1px; background:var(--border); border:0.5px solid var(--border);
+}
+.contact-card {
+  padding:clamp(2rem,4vw,3rem) clamp(1.5rem,3vw,2.5rem);
+  background:var(--bg2); display:flex; flex-direction:column; align-items:center; gap:1rem;
+  transition:background 0.3s; position:relative; overflow:hidden;
+  justify-content:space-between;
+}
+.contact-card::before {
+  content:''; position:absolute; top:0; left:0; right:0; height:1px;
+  background:linear-gradient(to right,transparent,var(--gold),transparent);
+  opacity:0; transition:opacity 0.4s;
+}
+.contact-card:hover { background:var(--bg3); }
+.contact-card:hover::before { opacity:1; }
+.contact-card-icon { line-height:1; display:flex; align-items:center; justify-content:center; }
+.contact-card-platform { font-size:clamp(0.58rem,1.3vw,0.65rem); letter-spacing:0.3em; text-transform:uppercase; color:var(--gold); }
+.contact-card-value { font-family:'Cormorant Garamond',serif; font-size:clamp(1.1rem,2.5vw,1.5rem); font-weight:300; color:var(--text); }
+.contact-card-desc { font-size:clamp(0.68rem,1.5vw,0.76rem); color:var(--muted); font-weight:300; line-height:1.7; text-align:center; flex:1; }
+.contact-card-btn {
+  display:inline-block; margin-top:0.5rem; padding:0.7rem 1.8rem;
+  border:0.5px solid rgba(var(--gold-rgb),0.4); color:var(--gold);
+  font-size:clamp(0.58rem,1.3vw,0.65rem); letter-spacing:0.25em; text-transform:uppercase;
+  transition:all 0.35s;
+}
+.contact-card-btn:hover { background:var(--gold); color:var(--bg); border-color:var(--gold); }
+
+/* HORARIO */
+.hours-grid {
+  display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:1px; margin-top:2.5rem;
+  background:var(--border2); border:0.5px solid var(--border);
+}
+.hours-item { padding:1.4rem 1.8rem; background:var(--bg2); display:flex; justify-content:space-between; align-items:center; gap:1rem; transition:background 0.5s; }
+.hours-day { font-size:0.72rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--muted); font-weight:300; }
+.hours-time { font-family:'Cormorant Garamond',serif; font-size:1.05rem; color:var(--text); white-space:nowrap; }
+.hours-closed { color:rgba(var(--gold-rgb),0.35); font-style:italic; }
+
+/* FOOTER */
+footer {
+  padding:clamp(2rem,5vw,3rem) clamp(1.5rem,5vw,5rem);
+  background:var(--bg1); border-top:0.5px solid var(--border);
+  display:flex; align-items:center; justify-content:space-between;
+  flex-wrap:wrap; gap:1.5rem; transition:background 0.5s, border-color 0.5s;
+}
+.footer-logo { font-family:'Cormorant Garamond',serif; font-size:clamp(0.85rem,2vw,1rem); letter-spacing:0.2em; text-transform:uppercase; color:var(--gold); }
+.footer-links { display:flex; gap:2rem; list-style:none; flex-wrap:wrap; }
+.footer-links a { font-size:0.65rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--muted); transition:color 0.3s; }
+.footer-links a:hover { color:var(--gold); }
+.footer-copy { font-size:0.62rem; color:var(--muted); }
+
+/* ═══════════════════════════════════════
+   KEYFRAMES
+═══════════════════════════════════════ */
+@keyframes fadeUp { from{opacity:0;transform:translateY(28px);}to{opacity:1;transform:translateY(0);} }
+@keyframes scrollAnim { 0%,100%{opacity:.25;transform:scaleY(.85);}50%{opacity:1;transform:scaleY(1.15);} }
+
+/* ═══════════════════════════════════════
+   RESPONSIVE TABLET ≤900px
+═══════════════════════════════════════ */
+@media (max-width:900px) {
+  .nav-links { display:none; }
+  .nav-hamburger { display:flex; }
+  .lang-selector { display:none; }
+  .about-wrap { grid-template-columns:1fr; gap:2.5rem; }
+  .about-frame { max-width:380px; margin:0 auto; }
+  .services-grid { grid-template-columns:repeat(2,1fr); }
+  .c-item[data-pos="right2"],
+  .c-item[data-pos="left2"] { opacity:0.3; }
+}
+
+/* ═══════════════════════════════════════
+   RESPONSIVE MOBILE ≤580px
+═══════════════════════════════════════ */
+@media (max-width:580px) {
+  .hero-scroll { display:none; }
+  .services-grid { grid-template-columns:1fr; }
+  .contact-cards { grid-template-columns:1fr; }
+  .stats-row { gap:1.5rem; }
+  footer { flex-direction:column; text-align:center; align-items:center; }
+  .footer-links { justify-content:center; }
+  .theme-toggle { bottom:1.2rem; right:1.2rem; width:44px; height:44px; font-size:1.1rem; }
+  /* en mobile carrusel más compacto */
+  .c-item[data-pos="right2"],
+  .c-item[data-pos="left2"] { display:none; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══ TOGGLE TEMA ═══ -->
+<button class="theme-toggle" onclick="toggleTheme()" aria-label="Cambiar tema" title="Modo día / noche">
+  <span class="icon-dark" style="font-size:1.1rem;font-weight:300;letter-spacing:0.05em;color:#C9A84C;font-family:'Cormorant Garamond',serif;">☽</span>
+  <span class="icon-light" style="font-size:1.1rem;font-weight:300;letter-spacing:0.05em;color:#9A7A30;font-family:'Cormorant Garamond',serif;">☀</span>
+</button>
+
+<!-- ═══ NAV ═══ -->
+<nav>
+  <div class="nav-logo">GS · Nail Designer</div>
+  <ul class="nav-links">
+    <li><a href="#servicios" data-i18n="nav_servicios">Servicios</a></li>
+    <li><a href="#sobre-mi" data-i18n="nav_sobre">Sobre mí</a></li>
+    <li><a href="#galeria" data-i18n="nav_galeria">Galería</a></li>
+    <li><a href="#contacto" data-i18n="nav_contacto">Contacto</a></li>
+  </ul>
+  <div class="nav-right">
+    <div class="lang-selector">
+      <button class="lang-btn active" onclick="setLang('es')">ES</button>
+      <button class="lang-btn" onclick="setLang('pt')">PT</button>
+      <button class="lang-btn" onclick="setLang('en')">EN</button>
+    </div>
+    <button class="nav-hamburger" onclick="openMenu()" aria-label="Menú">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<div class="nav-mobile" id="navMobile">
+  <button class="nav-mobile-close" onclick="closeMenu()">✕</button>
+  <a href="#servicios" onclick="closeMenu()">Servicios</a>
+  <a href="#sobre-mi" onclick="closeMenu()">Sobre mí</a>
+  <a href="#galeria" onclick="closeMenu()">Galería</a>
+  <a href="#contacto" onclick="closeMenu()">Contacto</a>
+</div>
+
+<!-- ═══ HERO ═══ -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-top-line"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow"><span class="hero-eyebrow-text">Nail Art · Lujo · Precisión</span></div>
+    <img src="fotos/logoGeisimara.png" alt="Geisimara Santos Nail Designer" class="hero-logo">
+    <p class="hero-tagline">El arte de la perfección en tus manos</p>
+    <a href="#contacto" class="hero-cta">Entra en contacto</a>
+  </div>
+  <div class="hero-scroll"><div class="scroll-bar"></div><span>Scroll</span></div>
+</section>
+
+<!-- ═══ SERVICIOS ═══ -->
+<section class="services" id="servicios">
+  <div class="services-header">
+    <span class="section-label srv-label">Lo que ofrezco</span>
+    <h2 class="section-title srv-title">Servicios<br>exclusivos</h2>
+    <div class="divider"></div>
+    <p class="srv-desc">Cada trabajo es una obra única, diseñada con precisión y pasión. Materiales de primera calidad, técnicas premium.</p>
+  </div>
+  <div class="services-grid">
+    <div class="service-card"><div class="service-num">01</div><div class="service-name s1n">Manicura Clásica</div><div class="service-desc s1d">Tratamiento completo con limado, cutículas y esmaltado de larga duración. La base perfecta.</div></div>
+    <div class="service-card"><div class="service-num">02</div><div class="service-name s2n">Manicura en Gel</div><div class="service-desc s2d">Resultado impecable y duradero hasta 3 semanas. Brillo intenso sin daño en la uña natural.</div></div>
+    <div class="service-card"><div class="service-num">03</div><div class="service-name s3n">Nail Art & Diseño</div><div class="service-desc s3d">Creaciones personalizadas: flores, geometrías, efectos 3D, glitter y mucho más. Tu estilo único.</div></div>
+    <div class="service-card"><div class="service-num">04</div><div class="service-name s4n">Pedicura Spa</div><div class="service-desc s4d">Ritual completo con exfoliación, hidratación profunda y esmaltado premium. Bienestar total.</div></div>
+    <div class="service-card"><div class="service-num">05</div><div class="service-name s5n">Extensiones</div><div class="service-desc s5d">Uñas de acrílico o gel con la longitud y forma que desees. Natural o dramático, siempre perfecto.</div></div>
+    <div class="service-card"><div class="service-num">06</div><div class="service-name s6n">Packs Especiales</div><div class="service-desc s6d">Combina servicios con precio exclusivo. Bodas, eventos y ocasiones que merecen ser celebradas.</div></div>
+  </div>
+</section>
+
+<!-- ═══ SOBRE MÍ ═══ -->
+<section id="sobre-mi">
+  <div class="about-wrap">
+    <div class="about-frame">
+      <div class="corner tl"></div><div class="corner tr"></div>
+      <div class="corner bl"></div><div class="corner br"></div>
+      <img src="fotos/Geisimara.jpg" alt="Geisimara Santos en su estudio">
+    </div>
+    <div class="about-text">
+      <span class="section-label about-label">La artista</span>
+      <h2 class="section-title">Geisimara<br><span class="gold">Santos</span></h2>
+      <div class="divider"></div>
+      <p class="about-p1">Soy nail designer especializada en crear experiencias únicas de belleza. Cada cliente merece un tratamiento exclusivo, con materiales de primera calidad y técnicas innovadoras.</p>
+      <p class="about-p2">Mi pasión es convertir cada sesión en un momento especial, donde el arte y el cuidado se unen para ofrecerte el mejor resultado posible.</p>
+      <div class="stats-row">
+        <div><span class="stat-num">10+</span><span class="stat-label stat1-label">Años de experiencia</span></div>
+        <div><span class="stat-num">1000+</span><span class="stat-label stat2-label">Clientes felices</span></div>
+        <div><span class="stat-num">100%</span><span class="stat-label stat3-label">Satisfacción</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CARRUSEL GALERÍA ═══ -->
+<section class="carousel-section" id="galeria">
+  <div class="carousel-header">
+    <span class="section-label gal-label">Trabajos recientes</span>
+    <h2 class="section-title gal-title">Galería de <span class="gold">inspiración</span></h2>
+  </div>
+
+  <div class="carousel-stage">
+    <button class="carousel-btn prev" onclick="carouselMove(-1)" aria-label="Anterior">&#8592;</button>
+
+    <div class="carousel-track" id="carouselTrack">
+      <!-- Las tarjetas se generan por JS -->
+    </div>
+
+    <button class="carousel-btn next" onclick="carouselMove(1)" aria-label="Siguiente">&#8594;</button>
+  </div>
+
+  <div class="carousel-dots" id="carouselDots"></div>
+
+  <p style="margin-top:1.5rem;text-align:center;font-size:0.72rem;color:var(--muted);font-style:italic;font-family:'Cormorant Garamond',serif;">
+    <span class="gal-note-text">Sígueme en Instagram para ver todos mis diseños</span> ·
+    <a href="https://instagram.com/geisimarags.studio" target="_blank" rel="noopener" style="color:var(--gold);">@geisimarags.studio</a>
+  </p>
+</section>
+
+<!-- ═══ LIGHTBOX ═══ -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+  <img id="lightboxImg" src="" alt="Diseño ampliado">
+  <div class="lightbox-hint">Haz clic para cerrar</div>
+</div>
+
+<!-- ═══ CONTACTO ═══ -->
+<section id="contacto">
+  <div class="contact-center">
+    <span class="section-label contact-label">Hablemos</span>
+    <h2 class="section-title contact-title">Entra en <span class="gold">contacto</span></h2>
+    <p class="contact-subtitle contact-sub">¿Lista para tu próxima cita? Escríbeme</p>
+
+    <div class="contact-cards">
+      <div class="contact-card">
+        <div class="contact-card-icon">
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><path d="M8 10h.01M12 10h.01M16 10h.01"/></svg>
+        </div>
+        <div class="contact-card-platform wa-platform">WhatsApp / Teléfono</div>
+        <div class="contact-card-value">+351 932 769 699</div>
+        <div class="contact-card-desc wa-desc">Escríbeme por WhatsApp y te respondo lo antes posible para coordinar tu cita.</div>
+        <a href="https://wa.me/351932769699" target="_blank" rel="noopener" class="contact-card-btn wa-btn">Enviar mensaje</a>
+      </div>
+      <div class="contact-card">
+        <div class="contact-card-icon">
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="var(--gold)" stroke="none"/></svg>
+        </div>
+        <div class="contact-card-platform ig-platform">Instagram</div>
+        <div class="contact-card-value">@geisimarags.studio</div>
+        <div class="contact-card-desc ig-desc">Sígueme para ver mis últimos diseños e inspírate. También puedes escribirme por DM.</div>
+        <a href="https://instagram.com/geisimarags.studio" target="_blank" rel="noopener" class="contact-card-btn ig-btn">Ver perfil</a>
+      </div>
+    </div>
+
+    <div style="margin-top:clamp(3rem,6vw,5rem);text-align:left;">
+      <span class="section-label hours-label">Horario</span>
+      <h3 class="hours-title" style="font-family:'Cormorant Garamond',serif;font-weight:300;font-size:clamp(1.4rem,3vw,2rem);margin-bottom:1.5rem;">
+        ¿Cuándo puedo <span class="gold">atenderte?</span>
+      </h3>
+      <div class="hours-grid">
+        <div class="hours-item"><span class="hours-day hd1">Martes – Sábado</span><span class="hours-time ht1">09:00 – 20:00</span></div>
+        <div class="hours-item"><span class="hours-day hd2">Lunes</span><span class="hours-time ht2">Bajo Consulta</span></div>
+        <div class="hours-item"><span class="hours-day hd3">Domingos</span><span class="hours-time hours-closed ht3">Cerrado</span></div>
+      </div>
+      <p class="hours-note" style="margin-top:1.2rem;font-size:0.75rem;color:var(--muted);font-weight:300;font-style:italic;">
+        * Horarios orientativos. Contacta para confirmar disponibilidad.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+  <div class="footer-logo">Geisimara Santos · Nail Designer</div>
+  <ul class="footer-links">
+    <li><a href="#servicios">Servicios</a></li>
+    <li><a href="#galeria">Galería</a></li>
+    <li><a href="#contacto">Contacto</a></li>
+    <li><a href="https://instagram.com/geisimarags.studio" target="_blank" rel="noopener">Instagram</a></li>
+    <li><a href="https://wa.me/351932769699" target="_blank" rel="noopener">WhatsApp</a></li>
+  </ul>
+  <div class="footer-copy">© 2026 Geisimara Santos. Todos los derechos reservados.</div>
+</footer>
+
+<!-- ═══════════════════════════════════════
+     SCRIPTS
+═══════════════════════════════════════ -->
+<script>
+/* ─── TEMA ─── */
+function toggleTheme() {
+  const html = document.documentElement;
+  html.setAttribute('data-theme', html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+  localStorage.setItem('gs-theme', html.getAttribute('data-theme'));
+}
+(function(){
+  const saved = localStorage.getItem('gs-theme');
+  if (saved) document.documentElement.setAttribute('data-theme', saved);
+})();
+
+/* ─── MENÚ MOBILE ─── */
+function openMenu()  { document.getElementById('navMobile').classList.add('open'); document.body.style.overflow='hidden'; }
+function closeMenu() { document.getElementById('navMobile').classList.remove('open'); document.body.style.overflow=''; }
+document.addEventListener('keydown', e => { if(e.key==='Escape'){ closeMenu(); closeLightbox(); } });
+
+/* ─── CARRUSEL ─── */
+const PHOTOS = [
+  { src:'fotos/VerdeLargas.jpg',    label:'Nail Art Glitter' },
+  { src:'fotos/MoradoLargas.jpg',   label:'Extensiones Morado' },
+  { src:'fotos/BlancoBrillos.jpg',  label:'French & Estrellas' },
+  { src:'fotos/BlancoConcha.jpg',   label:'Blanco Nacarado' },
+  { src:'fotos/BlancoFlor.jpg',     label:'French 3D' },
+  { src:'fotos/MarronFlor.jpg',     label:'Marrón & Flor' },
+];
+
+// posiciones en orden desde el centro
+const POS_ORDER = ['center','right1','right2','hidden-right','hidden-left','left2','left1'];
+
+let current = 0;
+let autoTimer = null;
+
+function buildCarousel() {
+  const track = document.getElementById('carouselTrack');
+  const dots  = document.getElementById('carouselDots');
+  track.innerHTML = '';
+  dots.innerHTML  = '';
+
+  PHOTOS.forEach((p, i) => {
+    const el = document.createElement('div');
+    el.className = 'c-item';
+    el.dataset.index = i;
+    el.innerHTML = `<img src="${p.src}" alt="${p.label}" draggable="false">`;
+    el.addEventListener('click', () => onItemClick(i));
+    track.appendChild(el);
+
+    const dot = document.createElement('button');
+    dot.className = 'c-dot';
+    dot.setAttribute('aria-label', `Foto ${i+1}`);
+    dot.addEventListener('click', () => goTo(i));
+    dots.appendChild(dot);
+  });
+
+  render();
+  startAuto();
+}
+
+function getPos(index) {
+  const n = PHOTOS.length;
+  const diff = ((index - current) % n + n) % n;
+  // diff: 0=center, 1=right1, 2=right2, 3..n-3=hidden-right, n-2=left2, n-1=left1
+  if (diff === 0) return 'center';
+  if (diff === 1) return 'right1';
+  if (diff === 2) return 'right2';
+  if (diff === n-1) return 'left1';
+  if (diff === n-2) return 'left2';
+  if (diff <= Math.floor(n/2)) return 'hidden-right';
+  return 'hidden-left';
+}
+
+function render() {
+  const items = document.querySelectorAll('.c-item');
+  items.forEach(el => {
+    const i = parseInt(el.dataset.index);
+    el.setAttribute('data-pos', getPos(i));
+  });
+  const dots = document.querySelectorAll('.c-dot');
+  dots.forEach((d,i) => d.classList.toggle('active', i === current));
+}
+
+function goTo(i) {
+  current = ((i % PHOTOS.length) + PHOTOS.length) % PHOTOS.length;
+  render();
+  resetAuto();
+}
+
+function carouselMove(dir) { goTo(current + dir); }
+
+function startAuto() {
+  autoTimer = setInterval(() => carouselMove(1), 4000);
+}
+function resetAuto() {
+  clearInterval(autoTimer);
+  startAuto();
+}
+
+/* ─── clic en item: centro = lightbox, lateral = ir a esa foto ─── */
+function onItemClick(i) {
+  const pos = getPos(i);
+  if (pos === 'center') {
+    openLightbox(PHOTOS[i].src);
+  } else {
+    goTo(i);
+  }
+}
+
+/* ─── swipe táctil ─── */
+let touchStartX = 0;
+document.getElementById('carouselTrack')?.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; }, {passive:true});
+document.getElementById('carouselTrack')?.addEventListener('touchend',   e => {
+  const dx = e.changedTouches[0].clientX - touchStartX;
+  if (Math.abs(dx) > 40) carouselMove(dx < 0 ? 1 : -1);
+}, {passive:true});
+
+/* ─── LIGHTBOX ─── */
+function openLightbox(src) {
+  document.getElementById('lightboxImg').src = src;
+  document.getElementById('lightbox').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+/* ─── SCROLL REVEAL ─── */
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.style.opacity = '1';
+      e.target.style.transform = 'translateY(0)';
+    }
+  });
+}, { threshold: 0.08 });
+
+document.querySelectorAll('.service-card,.contact-card,.hours-item').forEach(el => {
+  el.style.opacity = '0';
+  el.style.transform = 'translateY(18px)';
+  el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+  observer.observe(el);
+});
+
+/* ─── POSICIÓN BOTÓN TEMA: fijo en pantalla, pero no baja del footer ─── */
+(function(){
+  const btn = document.querySelector('.theme-toggle');
+  const foot = document.querySelector('footer');
+  if (!btn || !foot) return;
+
+  const GAP = 16; // px de margen sobre el footer
+  const BTN_H = 52;
+
+  function updatePos() {
+    const footTop = foot.getBoundingClientRect().top;
+    const vh = window.innerHeight;
+    // Posición natural: 2rem desde abajo de la ventana
+    const naturalBottom = 32; // px (2rem)
+    // Si el footer está visible y su top + gap + btn < viewport bottom → anclar sobre footer
+    const spaceBelow = vh - footTop; // cuánto del footer está visible
+    if (spaceBelow > 0) {
+      // mover el botón para que no entre en el footer
+      const newBottom = spaceBelow + GAP;
+      btn.style.bottom = Math.max(naturalBottom, newBottom) + 'px';
+    } else {
+      btn.style.bottom = naturalBottom + 'px';
+    }
+  }
+
+  window.addEventListener('scroll', updatePos, { passive: true });
+  window.addEventListener('resize', updatePos, { passive: true });
+  updatePos();
+})();
+
+/* ─── INIT ─── */
+buildCarousel();
+
+/* ─── IDIOMAS ─── */
+const TRANSLATIONS = {
+  es: {
+    nav_servicios:'Servicios', nav_sobre:'Sobre mí', nav_galeria:'Galería', nav_contacto:'Contacto',
+    hero_eyebrow:'Nail Art · Lujo · Precisión',
+    hero_tagline:'El arte de la perfección en tus manos',
+    hero_cta:'Entra en contacto',
+    srv_label:'Lo que ofrezco', srv_title:'Servicios<br>exclusivos',
+    srv_desc:'Cada trabajo es una obra única, diseñada con precisión y pasión. Materiales de primera calidad, técnicas premium.',
+    s1n:'Manicura Clásica', s1d:'Tratamiento completo con limado, cutículas y esmaltado de larga duración. La base perfecta.',
+    s2n:'Manicura en Gel', s2d:'Resultado impecable y duradero hasta 3 semanas. Brillo intenso sin daño en la uña natural.',
+    s3n:'Nail Art & Diseño', s3d:'Creaciones personalizadas: flores, geometrías, efectos 3D, glitter y mucho más. Tu estilo único.',
+    s4n:'Pedicura Spa', s4d:'Ritual completo con exfoliación, hidratación profunda y esmaltado premium. Bienestar total.',
+    s5n:'Extensiones', s5d:'Uñas de acrílico o gel con la longitud y forma que desees. Natural o dramático, siempre perfecto.',
+    s6n:'Packs Especiales', s6d:'Combina servicios con precio exclusivo. Bodas, eventos y ocasiones que merecen ser celebradas.',
+    about_label:'La artista', about_p1:'Soy nail designer especializada en crear experiencias únicas de belleza. Cada cliente merece un tratamiento exclusivo, con materiales de primera calidad y técnicas innovadoras.',
+    about_p2:'Mi pasión es convertir cada sesión en un momento especial, donde el arte y el cuidado se unen para ofrecerte el mejor resultado posible.',
+    stat1:'Años de experiencia', stat2:'Clientes felices', stat3:'Satisfacción',
+    gal_label:'Trabajos recientes', gal_title:'Galería de <span class="gold">inspiración</span>',
+    gal_note:'Sígueme en Instagram para ver todos mis diseños',
+    contact_label:'Hablemos', contact_title:'Entra en <span class="gold">contacto</span>',
+    contact_sub:'¿Lista para tu próxima cita? Escríbeme',
+    wa_platform:'WhatsApp / Teléfono', wa_desc:'Escríbeme por WhatsApp y te respondo lo antes posible para coordinar tu cita.', wa_btn:'Enviar mensaje',
+    ig_platform:'Instagram', ig_desc:'Sígueme para ver mis últimos diseños e inspírate. También puedes escribirme por DM.', ig_btn:'Ver perfil',
+    hours_label:'Horario', hours_title:'¿Cuándo puedo <span class="gold">atenderte?</span>',
+    hours_note:'* Horarios orientativos. Contacta para confirmar disponibilidad.',
+    d1:'Lunes – Viernes', t1:'09:00 – 19:00', d2:'Sábados', t2:'10:00 – 17:00', d3:'Domingos', t3:'Cerrado',
+    footer_copy:'© 2026 Geisimara Santos. Todos los derechos reservados.'
+  },
+  pt: {
+    nav_servicios:'Serviços', nav_sobre:'Sobre mim', nav_galeria:'Galeria', nav_contacto:'Contato',
+    hero_eyebrow:'Nail Art · Luxo · Precisão',
+    hero_tagline:'A arte da perfeição nas suas mãos',
+    hero_cta:'Entre em contato',
+    srv_label:'O que ofereço', srv_title:'Serviços<br>exclusivos',
+    srv_desc:'Cada trabalho é uma obra única, desenhada com precisão e paixão. Materiais de primeira qualidade, técnicas premium.',
+    s1n:'Manicure Clássica', s1d:'Tratamento completo com lixamento, cutículas e esmalte de longa duração. A base perfeita.',
+    s2n:'Manicure em Gel', s2d:'Resultado impecável e duradouro até 3 semanas. Brilho intenso sem danos na unha natural.',
+    s3n:'Nail Art & Design', s3d:'Criações personalizadas: flores, geometrias, efeitos 3D, glitter e muito mais. O seu estilo único.',
+    s4n:'Pedicure Spa', s4d:'Ritual completo com esfoliação, hidratação profunda e esmalte premium. Bem-estar total.',
+    s5n:'Extensões', s5d:'Unhas de acrílico ou gel com o comprimento e forma que desejar. Natural ou dramático, sempre perfeito.',
+    s6n:'Pacotes Especiais', s6d:'Combine serviços com preço exclusivo. Casamentos, eventos e ocasiões especiais.',
+    about_label:'A artista', about_p1:'Sou nail designer especializada em criar experiências únicas de beleza. Cada cliente merece um tratamento exclusivo, com materiais de primeira qualidade e técnicas inovadoras.',
+    about_p2:'A minha paixão é transformar cada sessão num momento especial, onde a arte e o cuidado se unem para oferecer o melhor resultado possível.',
+    stat1:'Anos de experiência', stat2:'Clientes felizes', stat3:'Satisfação',
+    gal_label:'Trabalhos recentes', gal_title:'Galeria de <span class="gold">inspiração</span>',
+    gal_note:'Siga-me no Instagram para ver todos os designs',
+    contact_label:'Fale comigo', contact_title:'Entre em <span class="gold">contato</span>',
+    contact_sub:'Pronta para a sua próxima sessão? Escreva-me',
+    wa_platform:'WhatsApp / Telefone', wa_desc:'Escreva-me pelo WhatsApp e respondo o mais rápido possível para marcar a sua sessão.', wa_btn:'Enviar mensagem',
+    ig_platform:'Instagram', ig_desc:'Siga-me para ver os meus últimos designs. Também pode contactar-me por DM.', ig_btn:'Ver perfil',
+    hours_label:'Horário', hours_title:'Quando posso <span class="gold">atendê-la?</span>',
+    hours_note:'* Horários orientativos. Contacte para confirmar disponibilidade.',
+    d1:'Terça – Sábado', t1:'09:00 – 20:00', d2:'Segundas', t2:'Sob Consulta', d3:'Domingos', t3:'Fechado',
+    footer_copy:'© 2026 Geisimara Santos. Todos os direitos reservados.'
+  },
+  en: {
+    nav_servicios:'Services', nav_sobre:'About', nav_galeria:'Gallery', nav_contacto:'Contact',
+    hero_eyebrow:'Nail Art · Luxury · Precision',
+    hero_tagline:'The art of perfection at your fingertips',
+    hero_cta:'Get in touch',
+    srv_label:'What I offer', srv_title:'Exclusive<br>services',
+    srv_desc:'Every design is a unique work of art, crafted with precision and passion. Premium materials, innovative techniques.',
+    s1n:'Classic Manicure', s1d:'Complete treatment with filing, cuticles and long-lasting nail polish. The perfect foundation.',
+    s2n:'Gel Manicure', s2d:'Flawless results lasting up to 3 weeks. Intense shine without damage to the natural nail.',
+    s3n:'Nail Art & Design', s3d:'Custom creations: flowers, geometrics, 3D effects, glitter and much more. Your unique style.',
+    s4n:'Spa Pedicure', s4d:'Full ritual with exfoliation, deep hydration and premium polish. Head-to-toe wellness.',
+    s5n:'Extensions', s5d:'Acrylic or gel nails in any length or shape you desire. Natural or dramatic, always perfect.',
+    s6n:'Special Packages', s6d:'Combine services at an exclusive price. Perfect for weddings, events and special occasions.',
+    about_label:'The artist', about_p1:'I am a nail designer specialised in creating unique beauty experiences. Each client deserves exclusive treatment with top-quality materials and innovative techniques.',
+    about_p2:'My passion is turning every session into a special moment where art and care come together to deliver the best possible result.',
+    stat1:'Years of experience', stat2:'Happy clients', stat3:'Satisfaction',
+    gal_label:'Recent work', gal_title:'Gallery of <span class="gold">inspiration</span>',
+    gal_note:'Follow me on Instagram to see all my designs',
+    contact_label:'Let\'s talk', contact_title:'Get in <span class="gold">touch</span>',
+    contact_sub:'Ready for your next appointment? Write to me',
+    wa_platform:'WhatsApp / Phone', wa_desc:'Message me on WhatsApp and I\'ll get back to you as soon as possible to arrange your appointment.', wa_btn:'Send message',
+    ig_platform:'Instagram', ig_desc:'Follow me to see my latest designs and get inspired. You can also reach me by DM.', ig_btn:'View profile',
+    hours_label:'Opening hours', hours_title:'When can I <span class="gold">see you?</span>',
+    hours_note:'* Approximate hours. Contact to confirm availability.',
+    d1:'Tuesday – Saturday', t1:'09:00 – 20:00', d2:'Monday', t2:'By appointment', d3:'Sundays', t3:'Closed',
+    footer_copy:'© 2026 Geisimara Santos. All rights reserved.'
+  }
+};
+
+let currentLang = localStorage.getItem('gs-lang') || 'es';
+
+function setLang(lang) {
+  currentLang = lang;
+  localStorage.setItem('gs-lang', lang);
+  const t = TRANSLATIONS[lang];
+  if (!t) return;
+
+  // Nav links
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (t[key] !== undefined) el.textContent = t[key];
+  });
+
+  // Hero
+  setText('.hero-eyebrow-text', t.hero_eyebrow);
+  setText('.hero-tagline', t.hero_tagline);
+  setText('.hero-cta', t.hero_cta);
+
+  // Servicios
+  setText('.srv-label', t.srv_label);
+  setHTML('.srv-title', t.srv_title);
+  setText('.srv-desc', t.srv_desc);
+  setText('.s1n', t.s1n); setText('.s1d', t.s1d);
+  setText('.s2n', t.s2n); setText('.s2d', t.s2d);
+  setText('.s3n', t.s3n); setText('.s3d', t.s3d);
+  setText('.s4n', t.s4n); setText('.s4d', t.s4d);
+  setText('.s5n', t.s5n); setText('.s5d', t.s5d);
+  setText('.s6n', t.s6n); setText('.s6d', t.s6d);
+
+  // Sobre mí
+  setText('.about-label', t.about_label);
+  setText('.about-p1', t.about_p1);
+  setText('.about-p2', t.about_p2);
+  setText('.stat1-label', t.stat1);
+  setText('.stat2-label', t.stat2);
+  setText('.stat3-label', t.stat3);
+
+  // Galería
+  setText('.gal-label', t.gal_label);
+  setHTML('.gal-title', t.gal_title);
+  setText('.gal-note-text', t.gal_note);
+
+  // Contacto
+  setText('.contact-label', t.contact_label);
+  setHTML('.contact-title', t.contact_title);
+  setText('.contact-sub', t.contact_sub);
+  setText('.wa-platform', t.wa_platform); setText('.wa-desc', t.wa_desc); setText('.wa-btn', t.wa_btn);
+  setText('.ig-platform', t.ig_platform); setText('.ig-desc', t.ig_desc); setText('.ig-btn', t.ig_btn);
+
+  // Horario
+  setText('.hours-label', t.hours_label);
+  setHTML('.hours-title', t.hours_title);
+  setText('.hours-note', t.hours_note);
+  setText('.hd1', t.d1); setText('.ht1', t.t1);
+  setText('.hd2', t.d2); setText('.ht2', t.t2);
+  setText('.hd3', t.d3); setText('.ht3', t.t3);
+
+  // Footer
+  setText('.footer-copy', t.footer_copy);
+
+  // Botones activos
+  document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.textContent === lang.toUpperCase()));
+}
+
+function setText(sel, val) { const el=document.querySelector(sel); if(el && val!==undefined) el.textContent=val; }
+function setHTML(sel, val) { const el=document.querySelector(sel); if(el && val!==undefined) el.innerHTML=val; }
+
+// Aplicar idioma guardado al cargar
+document.addEventListener('DOMContentLoaded', () => setLang(currentLang));
+</script>
+</body>
+</html>
